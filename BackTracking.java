@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class BackTracking {
 
@@ -99,13 +100,32 @@ public class BackTracking {
     }
 
 
+    //practice problem
+    public static void findCombination(int n , int element, int[] arr){
 
+        if (element > n) {
+            System.out.println(Arrays.toString(arr));
+            return;
+        }
 
+        for(int pos=0;pos< 2*n;pos++){
+            if (arr[pos]==-1 && (pos+element+1)<2*n && arr[pos+element+1]==-1) {
+                arr[pos] = element;
+                arr[pos+element+1] = element;
+                findCombination(n,element+1, arr);
+                arr[pos] = -1;
+                arr[pos+element+1] = -1;
+            }
+        }  
+    }
 
 
     public static void main(String[] args) {
-           int n =4;
-           nQueenSolution(n);
+           int n =7;
+        //    nQueenSolution(n);
+           int[] arr = new int[2*n];
+           Arrays.fill(arr, -1);
+           findCombination(n,1,arr);
 
     }
 }
